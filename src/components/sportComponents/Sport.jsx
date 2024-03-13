@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,6 +9,13 @@ import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import Music from "./assets/sport.mp3";
 import { IconButton } from "@mui/material";
 import { Pause, PlayArrow } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import CropLandscapeIcon from "@mui/icons-material/CropLandscape";
+import MovieFilterIcon from "@mui/icons-material/MovieFilter";
+import PublicIcon from "@mui/icons-material/Public";
+import LabelIcon from "@mui/icons-material/Label";
 const Sport = () => {
   const SampleNextArrow = (props) => {
     const { onClick } = props;
@@ -64,6 +71,7 @@ const Sport = () => {
     ],
   };
   const { theme, toggleTheme } = useTheme();
+  //! Music
   const [isPlaying, setIsPlaying] = useState(false);
 
   const togglePlay = () => {
@@ -76,6 +84,31 @@ const Sport = () => {
       setIsPlaying(false);
     }
   };
+  // ! Burger menu
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleMenuItemClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div
       className="sport__container"
@@ -91,14 +124,135 @@ const Sport = () => {
         }}
       >
         <div style={{ display: "flex", marginLeft: "6%", marginTop: "2%" }}>
-          <div>
-            <button class="burger-button">
-              <span class="bar"></span>
-              <span class="bar"></span>
-              <span class="bar"></span>
-            </button>
+          <div style={{ position: "relative", marginRight: "20px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                marginRight: "6%",
+                marginTop: "2%",
+              }}
+            >
+              <button className="burger-button" onClick={toggleMenu}>
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
+              </button>
+            </div>
+            {isOpen && (
+              <ul
+                className="dropdown-menu"
+                ref={menuRef}
+                style={{
+                  position: "absolute",
+                  top: "285%",
+                  left: "570%",
+                  transform: "translate(-50%, -50%)",
+                  minWidth: "200px",
+                  padding: "20px",
+                  borderRadius: "10px",
+                  backgroundColor: "rgba(1, 1, 2, 0.76)",
+                  boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
+                  zIndex: "1",
+                  listStyle: "none",
+                }}
+              >
+                <li className="mainHover">
+                  <NavLink
+                    to={"/"}
+                    onClick={handleMenuItemClick}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      fontWeight: "500",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <HomeIcon style={{ marginRight: "5px" }} />
+                    Главная
+                  </NavLink>
+                </li>
+                <li className="mainHover">
+                  <NavLink
+                    to={"/onlineCinema"}
+                    onClick={handleMenuItemClick}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      fontWeight: "500",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <PlayArrowIcon style={{ marginRight: "5px" }} />
+                    Онлайн-Кинотеатр
+                  </NavLink>
+                </li>
+                <li className="mainHover">
+                  <NavLink
+                    to={"/moviesList"}
+                    onClick={handleMenuItemClick}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      fontWeight: "500",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <CropLandscapeIcon style={{ marginRight: "5px" }} />
+                    Фильмы
+                  </NavLink>
+                </li>
+                <li className="mainHover">
+                  <NavLink
+                    to={"/moviesList"}
+                    onClick={handleMenuItemClick}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      fontWeight: "500",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <MovieFilterIcon style={{ marginRight: "5px" }} />
+                    Сериалы
+                  </NavLink>
+                </li>
+                <li className="mainHover">
+                  <NavLink
+                    to={"/sport"}
+                    onClick={handleMenuItemClick}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      fontWeight: "500",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <PublicIcon style={{ marginRight: "5px" }} />
+                    Спорт
+                  </NavLink>
+                </li>
+                <li className="mainHover">
+                  <NavLink
+                    to={"/oscarHome"}
+                    href="#"
+                    onClick={handleMenuItemClick}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      fontWeight: "500",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <LabelIcon style={{ marginRight: "5px" }} />
+                    Оскар
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </div>
-          <div>
+          <div className="logo_nav">
             <img
               src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUzIiBoZWlnaHQ9IjIyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNNTQuMjgzIDExLjIxN0M1NC4yODMgNS4zODkgNTYuOTMxLjYxIDYyLjI1NS42MWM1LjMyMyAwIDcuOTcxIDQuNzc4IDcuOTcxIDEwLjYwNiAwIDUuODI3LTIuNjQ4IDEwLjYwNS03Ljk3MSAxMC42MDUtNS4zMjQuMDA0LTcuOTcyLTQuNzc0LTcuOTcyLTEwLjYwNVptNy45NzIgNy41NzljMS44NyAwIDIuOTY1LTMuMzUyIDIuOTY1LTcuNTc2cy0xLjA5NS03LjU3NS0yLjk2NS03LjU3NWMtMS44NyAwLTIuOTY2IDMuMzUxLTIuOTY2IDcuNTc1LjAwNCA0LjIyNCAxLjA5NiA3LjU3NiAyLjk2NiA3LjU3NlpNLjAwMyAxLjAyaDQuMDN2Ni4yNjVsNC4yMDQtNi4yNjVoNC44OTRsLTcuMTEgNy4zNDNMMTkuMDAzIDEuMDJ2NC42NjJMNy4zNDcgMTAuMTEybDExLjY1NS0xLjEwNnY0LjQyOUw3LjM0OCAxMi4zM2wxMS42NTUgNC40Mjh2NC42NjJsLTEyLjk4LTcuMzQyIDcuMTEgNy4zNDJIOC4yMzJMNC4wMyAxNS4xNTV2Ni4yNjVIMFYxLjAyMWguMDAzWm0yMS44NzUgMGg0Ljc0N2wtLjcxOCAxMy4xOTggNS44OTktMTMuMTk4aDMuODg2djIwLjM5NmgtNC43NDhsLjcxOS0xMy4xOTgtNS45IDEzLjE5OGgtMy44ODZWMS4wMlptMjEuNDQgMEgzOC41N3YyMC4zOTZoNC43NDh2LTkuMzI0aDQuMDN2OS4zMjRoNC43NDhWMS4wMmgtNC43NDhWOC44OWgtNC4wM1YxLjAyWm00Mi43NjcgMEg3Mi40MTd2MjAuMzk2aDQuNzQ4VjQuMjI0aDQuMTcydjE3LjE5M2g0Ljc0OFYxLjAyWm0yLjE4OCAxMC4xOTZDODguMjczIDUuMzg5IDkwLjkyLjYxIDk2LjI0NC42MWM1LjMyNCAwIDcuOTcyIDQuNzc4IDcuOTcyIDEwLjYwNiAwIDUuODI3LTIuNjQ4IDEwLjYwNS03Ljk3MiAxMC42MDUtNS4zMjMgMC03Ljk3MS00Ljc3NC03Ljk3MS0xMC42MDVabTcuOTc1IDcuNTc5YzEuODcgMCAyLjk2NS0zLjM1MiAyLjk2NS03LjU3NnMtMS4wOTUtNy41NzUtMi45NjUtNy41NzVjLTEuODcgMC0yLjk2NiAzLjM1MS0yLjk2NiA3LjU3NXMxLjA5MiA3LjU3NiAyLjk2NiA3LjU3NlpNMTExLjE1NCAxLjAyaC00Ljc0OHYyMC4zOTZoMy44ODdsNS44OTktMTMuMTk4LS43MTkgMTMuMTk4aDQuNzQ4VjEuMDJoLTMuODg2bC01Ljg5OSAxMy4xOTguNzE4LTEzLjE5OFptMjEuNjk5IDEzLjE5OCA0LjUxOC42OTktLjE0My43Yy0uNzc4IDMuNzg5LTMuMTM2IDYuMjA0LTcuMDIyIDYuMjA0LTUuMzI0IDAtNy44MDEtNC43NzgtNy44MDEtMTAuNjA1IDAtNS44MjggMi40NzctMTAuNjA2IDcuODAxLTEwLjYwNiAzLjc0MyAwIDYuMTI5IDIuNDIgNi45NjYgNS45NzJsLjE0My42MTEtNC42MzIgMS4wNDljLS4zNDYtMi44MjUtMS4xOC00LjYwNS0yLjQ3Ny00LjYwNS0xLjg3IDAtMi43OTEgMy4zNTEtMi43OTEgNy41NzVzLjkyMSA3LjU3NiAyLjc5MSA3LjU3NmMxLjQxMi4wMDcgMi4zMDItMS44OSAyLjY0Ny00LjU3Wk0xNDQuMDc2IDEuMDJoLTQuNzQ1djIwLjM5Nmg0Ljc0OHYtOS4xOGwzLjU5NyA5LjE4SDE1M2wtNS43NTctMTAuNTE4IDUuNjE0LTkuODc4aC00Ljg5NWwtMy44ODYgOS4xNzlWMS4wMjFaIiBmaWxsPSIjZmZmIi8+PC9zdmc+"
               alt=""
@@ -117,6 +271,7 @@ const Sport = () => {
           </div>
         </div>
         <div
+          className="menus"
           style={{
             display: "flex",
             marginLeft: "20%",
@@ -125,20 +280,29 @@ const Sport = () => {
             marginTop: "1%",
           }}
         >
-          <p>Главное</p>
-          <p>Мое</p>
-          <p>Каналы</p>
+          <p className="menua">Главное</p>
+          <NavLink
+            to={"/favorite"}
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <p className="menua">Мое</p>
+          </NavLink>
+          <p className="menua">Каналы</p>
         </div>
         <div
           style={{
             marginTop: "2.5%",
             marginLeft: "25%",
           }}
+          className="theme"
         >
           <WbSunnyOutlinedIcon onClick={toggleTheme} />
         </div>
-        <div style={{ marginTop: "-4px", marginLeft: "10px" }}>
-          <IconButton color="primary" onClick={togglePlay}>
+        <div
+          className="audios"
+          style={{ marginTop: "25px", marginLeft: "10px" }}
+        >
+          <IconButton color="secondary" onClick={togglePlay}>
             {isPlaying ? <Pause /> : <PlayArrow />}
           </IconButton>
           <audio

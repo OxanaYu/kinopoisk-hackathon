@@ -159,7 +159,7 @@ const Nominees = () => {
   ];
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div className="best" style={{ textAlign: "center", marginTop: "50px" }}>
       <h2 style={{ color: "white" }}>Номинанты</h2>
       <p
         style={{
@@ -174,6 +174,7 @@ const Nominees = () => {
         Лучшие фильмы
       </p>
       <div
+        className="movie"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -203,20 +204,22 @@ const Nominees = () => {
               <div className="img-container" style={{ position: "relative" }}>
                 <img src={movie.imageUrl} alt="" />
                 {hoveredIndex === index && (
-                  <img
-                    src="https://img.icons8.com/fluency-systems-regular/48/FFFFFF/favorites.png"
-                    alt="favorites"
-                    style={{
-                      position: "absolute",
-                      top: "0",
-                      right: "0",
-                      width: "24px",
-                      height: "24px",
-                      zIndex: "1",
-                      marginTop: "7px",
-                      marginRight: "2px",
-                    }}
-                  />
+                  <a href="https://hd.kinopoisk.ru/personal" target="blank">
+                    <img
+                      src="https://img.icons8.com/fluency-systems-regular/48/FFFFFF/favorites.png"
+                      alt="favorites"
+                      style={{
+                        position: "absolute",
+                        top: "0",
+                        right: "0",
+                        width: "24px",
+                        height: "24px",
+                        zIndex: "1",
+                        marginTop: "7px",
+                        marginRight: "2px",
+                      }}
+                    />
+                  </a>
                 )}
               </div>
               <p style={{ marginLeft: "-50px" }}>{movie.title}</p>
@@ -229,6 +232,7 @@ const Nominees = () => {
       </div>
 
       <div
+        className="best"
         style={{
           display: "flex",
           justifyContent: "space-around",
@@ -236,7 +240,7 @@ const Nominees = () => {
         }}
       >
         {/* Лучшая мужская роль */}
-        <div style={{ textAlign: "left" }}>
+        <div className="actr" style={{ textAlign: "left" }}>
           <h3
             style={{
               fontSize: "15px",
@@ -249,7 +253,7 @@ const Nominees = () => {
             Лучшая мужская роль
           </h3>
           {bestActorNominees.map((actor, index) => (
-            <div key={index}>
+            <div className="aaa" key={index}>
               <p
                 style={{
                   textOverflow: "ellipsis",

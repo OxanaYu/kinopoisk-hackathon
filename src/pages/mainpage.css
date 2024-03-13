@@ -49,11 +49,12 @@
 }
 
 .sidebar-container {
-  width: 300px; /* Ширина вашей боковой панели */
+  width: 100%; /* Ширина вашей боковой панели */
 }
 
 .mainpage-content {
   display: flex;
   flex-direction: column;
   flex: 1;
+  width: 80%;
 }

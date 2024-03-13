@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import MoviesList from "../components/product/MoviesList";
+
+import "./filmpage.css";
+import Navbar from "../homepage/Navbar";
 import SidebarMovies from "../components/product/SidebarMovies";
 
 const FilmPage = () => {
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+    <div style={{ backgroundColor: "#3b0000" }}>
+      <Navbar />
+      <div
+        className="movielist__container"
+        style={{ display: "flex", justifyContent: "flex-start" }}
+      >
         <div style={{ width: "300px", flex: "none" }}>
-          <SidebarMovies page={page} setPage={setPage} />
+          <SidebarMovies
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
         <MoviesList />
       </div>

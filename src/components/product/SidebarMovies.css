@@ -1,0 +1,49 @@
+.btn_dropdown {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  color: white;
+}
+
+.dropdown_content {
+  display: block;
+  position: absolute;
+  background-color: #3b0000;
+  min-width: 160px;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown_item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category_button,
+.genre_button {
+  background: linear-gradient(to bottom, #000, #800000);
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.category_button,
+.genre_button {
+  background: black;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.category_button:hover,
+.genre_button:hover {
+  background: linear-gradient(to bottom, #c0a5a5, #1f1b1b);
+}
